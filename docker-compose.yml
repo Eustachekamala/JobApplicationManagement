@@ -1,0 +1,37 @@
+services:
+  db:
+    container_name: JobApplicationManagement
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: jobApplicationDB
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      PGDATA: /data/postgres
+    volumes:
+      - db:/data/postgres
+    ports:
+      - "5434:5432"
+    networks:
+      - db
+    restart: unless-stopped
+
+  app:
+   build: .
+   container_name: job-application-app
+   depends_on:
+     - db
+   environment:
+     SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/jobApplicationDB
+     SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
+     SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
+
+   ports:
+     - "8001:8080"
+   networks:
+     - db
+
+networks:
+  db:
+    driver: bridge
+volumes:
+    db:
