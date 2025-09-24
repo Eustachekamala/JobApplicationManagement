@@ -5,6 +5,9 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.time.LocalDate;
 
 @Entity
 @Data
@@ -17,6 +20,8 @@ public class Application {
     private Integer id;
     private String status;
     private String position;
+    @CreationTimestamp
+    private LocalDate appliedAt;
 
     //Relationship with Applicant
     @ManyToOne
