@@ -48,4 +48,21 @@ public class JobController {
     ) {
         return new ResponseEntity<>(jobService.createJob(job), HttpStatus.CREATED);
     }
+
+    //Update a job
+    @PatchMapping("/update/{id}")
+    public ResponseEntity<Job> updateJob(
+            @PathVariable Integer id,
+            @RequestBody String title
+    ) {
+        return new ResponseEntity<>(jobService.updateJob(id, title), HttpStatus.OK);
+    }
+
+    //Get a job by title
+    @GetMapping("/title/{title}")
+    public ResponseEntity<Job> getJobByTitle(
+            @PathVariable String title
+    ) {
+        return new ResponseEntity<>(jobService.getJobByTitle(title), HttpStatus.OK);
+    }
 }

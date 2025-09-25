@@ -15,7 +15,7 @@ public class ApplicantController {
         this.applicantService = applicantService;
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("id/{id}")
     public Applicant getApplicantById(
             @PathVariable Integer id
     ) {
@@ -40,6 +40,13 @@ public class ApplicantController {
     @GetMapping("/all")
     public Iterable<Applicant> getAllApplicants() {
         return applicantService.getAllApplicants();
+    }
+
+    @GetMapping("firstname/{firstname}")
+    public Applicant getApplicantByFirstname(
+            @PathVariable String firstname
+    ) {
+        return applicantService.getApplicantByFirstname(firstname);
     }
 
     @DeleteMapping("/delete/{id}")
