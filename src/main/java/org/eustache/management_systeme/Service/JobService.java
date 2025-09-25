@@ -59,4 +59,15 @@ public class JobService {
         updatedJob.setTitle(title);
         return jobRepository.save(updatedJob);
     }
+
+    @Transactional
+    public String deleteJob(Integer id){
+        Optional<Job> job = jobRepository.findById(id);
+        if(job.isPresent()){
+            jobRepository.deleteById(id);
+            return "Job deleted successfully with id: " + id;
+        } else {
+            throw new RuntimeException("Job not found with id: " + id);
+        }
+    }
 }
