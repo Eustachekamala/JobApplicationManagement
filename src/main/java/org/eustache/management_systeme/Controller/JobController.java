@@ -65,4 +65,12 @@ public class JobController {
     ) {
         return new ResponseEntity<>(jobService.getJobByTitle(title), HttpStatus.OK);
     }
+
+    //Delete a job
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteJob(
+            @PathVariable Integer id
+    ) {
+        return new ResponseEntity<>(jobService.deleteJob(id), HttpStatus.OK);
+    }
 }
