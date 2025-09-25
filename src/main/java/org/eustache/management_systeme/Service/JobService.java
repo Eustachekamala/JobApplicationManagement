@@ -1,5 +1,6 @@
 package org.eustache.management_systeme.Service;
 
+import jakarta.transaction.Transactional;
 import org.eustache.management_systeme.Entity.Applicant;
 import org.eustache.management_systeme.Entity.Job;
 import org.eustache.management_systeme.Repository.ApplicantRepository;
