@@ -1,7 +1,7 @@
 services:
   db:
-    container_name: JobApplicationManagement
-    image: postgres:latest
+    container_name: JobApplicationManagementSystem
+    image: postgres:17
     environment:
       POSTGRES_DB: jobApplicationDB
       POSTGRES_USER: ${POSTGRES_USER}
@@ -17,7 +17,7 @@ services:
 
   app:
    build: .
-   container_name: job-application-app
+   container_name: JobApplicationManagementSystemApp
    depends_on:
      - db
    environment:

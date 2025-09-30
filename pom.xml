@@ -96,6 +96,7 @@
                 </configuration>
             </plugin>
         </plugins>
+        <finalName>job-application-management-system</finalName>
     </build>
 
 </project>

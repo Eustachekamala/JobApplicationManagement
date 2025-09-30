@@ -1,9 +1,13 @@
 FROM openjdk:21-jdk-slim
 
-WORKDIR /jobApplicationApp
+LABEL authors="eustache"
 
-COPY target/JobApplicationManagement-0.0.1-SNAPSHOT.jar jobApplicationApp.jar
+WORKDIR /app
 
 EXPOSE 8080
 
-ENTRYPOINT ["java", "-jar", "jobApplicationApp.jar"]
+# ADD the JAR file into the container
+ADD target/job-application-management-system.jar job-application-management-system.jar
+
+# Run the JAR
+ENTRYPOINT ["java", "-jar", "job-application-management-system.jar"]
