@@ -3,7 +3,9 @@
 ![Job Application Management](src/doc/JobApplicationManagement.png)
 
 ## 🗄️ Database Diagram
-### Table Structure:
+
+### Table Structure
+
 * Applicants:
   * One-to-One with Resume
   * One-to-Many with Applications
@@ -32,23 +34,29 @@ Built with **Java 21, Spring Boot, JPA (Hibernate), PostgreSQL**, and packaged w
 ---
 
 ## 🚀 Features
-- Manage Applicants (create, update, delete, list all)
-- Manage Jobs (create, view by ID, list all, assign to applicants)
-- Manage Applications (create links to applicants)
-- REST API with OpenAPI/Swagger documentation
+
+* Manage Applicants (create, update, delete, list all)
+* Manage Jobs (create, view by ID, list all, assign to applicants)
+* Manage Applications (create links to applicants)
+* REST API with OpenAPI/Swagger documentation
 
 ---
 
 ## 🐳 Running with Docker
 
 ### 1. Pull the image
+
 ```bash
 docker pull eustachekamala/job-application-management-system:latest
 ```
+
 ### 2. Run the container
+
 ```bash
 docker run -d -p 8080:8080 eustachekamala/job-application-management-system:latest
 ```
+
 ### 3. Access the application
-- API Documentation: [https://job-application-management-system-latest-qvm4.onrender.com/swagger-ui/index.html](https://job-application-management-system-latest-qvm4.onrender.com/swagger-ui/index.html)
-- OpenAPI Spec: [https://job-application-management-system-latest-qvm4.onrender.com/v3/api-docs](https://job-application-management-system-latest-qvm4.onrender.com/v3/api-docs)
+
+* API Documentation: [https://job-application-management-system-latest-qvm4.onrender.com/swagger-ui/index.html](https://job-application-management-system-latest-qvm4.onrender.com/swagger-ui/index.html)
+* OpenAPI Spec: [https://job-application-management-system-latest-qvm4.onrender.com/v3/api-docs](https://job-application-management-system-latest-qvm4.onrender.com/v3/api-docs)
