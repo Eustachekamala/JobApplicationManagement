@@ -8,12 +8,8 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("api/v1/applicants")
 public class ApplicantController {
-    private final ApplicantService applicantService;
-
     @Autowired
-    public ApplicantController(ApplicantService applicantService) {
-        this.applicantService = applicantService;
-    }
+    private ApplicantService applicantService;
 
     @GetMapping("id/{id}")
     public Applicant getApplicantById(

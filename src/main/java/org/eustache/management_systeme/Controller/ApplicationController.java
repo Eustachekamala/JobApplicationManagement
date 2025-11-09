@@ -9,12 +9,8 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/applications")
 public class ApplicationController {
-    private final ApplicationService applicationService;
-
     @Autowired
-    public ApplicationController(ApplicationService applicationService) {
-        this.applicationService = applicationService;
-    }
+    private ApplicationService applicationService;
 
     @PostMapping("/create/{applicantId}")
     public ResponseEntity<Application> createApplication(

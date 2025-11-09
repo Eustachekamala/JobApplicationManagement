@@ -11,12 +11,8 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/jobs")
 public class JobController {
-    private final JobService jobService;
-
     @Autowired
-    public JobController(JobService jobService) {
-        this.jobService = jobService;
-    }
+    private JobService jobService;
 
     //Get all jobs
     @GetMapping("/all")

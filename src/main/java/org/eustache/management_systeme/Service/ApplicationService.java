@@ -11,14 +11,11 @@ import java.util.Optional;
 
 @Service
 public class ApplicationService {
-    private final ApplicationRepository applicationRepository;
-    private final ApplicantRepository applicantRepository;
-
     @Autowired
-    public ApplicationService(ApplicationRepository applicationRepository, ApplicantRepository applicantRepository) {
-        this.applicationRepository = applicationRepository;
-        this.applicantRepository = applicantRepository;
-    }
+    private ApplicationRepository applicationRepository;
+    @Autowired
+    private ApplicantRepository applicantRepository;
+
 
     public Application createApplication(Integer applicantId, Application application) {
         Optional<Applicant> applicantOpt = applicantRepository.findById(applicantId);

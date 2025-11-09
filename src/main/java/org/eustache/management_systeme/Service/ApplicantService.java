@@ -5,8 +5,6 @@ import org.eustache.management_systeme.Entity.Application;
 import org.eustache.management_systeme.Entity.Resume;
 import org.eustache.management_systeme.Repository.ApplicantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,12 +12,8 @@ import java.util.Optional;
 
 @Service
 public class ApplicantService {
-    private final ApplicantRepository applicantRepository;
-
     @Autowired
-    public ApplicantService(ApplicantRepository applicantRepository) {
-        this.applicantRepository = applicantRepository;
-    }
+    private ApplicantRepository applicantRepository;
 
     public Applicant createApplicant(Applicant applicant) {
         Resume resume = applicant.getResume();

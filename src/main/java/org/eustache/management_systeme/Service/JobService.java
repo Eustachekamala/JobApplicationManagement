@@ -14,14 +14,10 @@ import java.util.Optional;
 
 @Service
 public class JobService {
-    private final JobRepository jobRepository;
-    private final ApplicantRepository applicantRepository;
-
     @Autowired
-    public JobService(JobRepository jobRepository, ApplicantRepository applicantRepository) {
-        this.jobRepository = jobRepository;
-        this.applicantRepository = applicantRepository;
-    }
+    private JobRepository jobRepository;
+    @Autowired
+    private ApplicantRepository applicantRepository;
 
     public Job createJob(Job job){
         return jobRepository.save(job);
