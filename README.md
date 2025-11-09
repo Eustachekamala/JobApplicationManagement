@@ -27,14 +27,14 @@
 [![OpenAPI](https://img.shields.io/badge/OpenAPI-3.1.0-red?logo=openapiinitiative)](https://www.openapis.org/)
 
 A Spring Boot application for managing job applicants, jobs, and applications.  
-Built with **Java 21, Spring Boot, JPA (Hibernate), PostgreSQL**, and packaged with **Docker**.
+Built with **Java 21, Spring Boot, JPA (Hibernate), PostgreSQL**, and packaged with **Docker** and **Jenkins**.
 
 ---
 
 ## 🚀 Features
 - Manage Applicants (create, update, delete, list all)
 - Manage Jobs (create, view by ID, list all, assign to applicants)
-- Manage Applications (create linked to applicants)
+- Manage Applications (create links to applicants)
 - REST API with OpenAPI/Swagger documentation
 
 ---
@@ -43,11 +43,11 @@ Built with **Java 21, Spring Boot, JPA (Hibernate), PostgreSQL**, and packaged w
 
 ### 1. Pull the image
 ```bash
-docker pull eustache21/job-application-management-system:latest
+docker pull eustachekamala/job-application-management-system:latest
 ```
 ### 2. Run the container
 ```bash
-docker run -d -p 8080:8080 eustache21/job-application-management-system:latest
+docker run -d -p 8080:8080 eustachekamala/job-application-management-system:latest
 ```
 ### 3. Access the application
 - API Documentation: [https://job-application-management-system-latest-qvm4.onrender.com/swagger-ui/index.html](https://job-application-management-system-latest-qvm4.onrender.com/swagger-ui/index.html)
