@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Build Maven') {
             environment {
-                SPRING_DATASOURCE_URL = "jdbc:postgresql://ep-jolly-lake-ad3k8uoo-pooler.c-2.us-east-1.aws.neon.tech/jobApplicationDB"
+                DATASOURCE_URL = "jdbc:postgresql://ep-jolly-lake-ad3k8uoo-pooler.c-2.us-east-1.aws.neon.tech/jobApplicationDB"
             }
             steps {
                 checkout scmGit(
@@ -21,8 +21,8 @@ pipeline {
                 withCredentials([
                     usernamePassword(
                         credentialsId: 'job_application_system',
-                        usernameVariable: 'SPRING_DATASOURCE_USERNAME',
-                        passwordVariable: 'SPRING_DATASOURCE_PASSWORD'
+                        usernameVariable: 'POSTGRES_USER',
+                        passwordVariable: 'POSTGRES_PASSWORD'
                     )
                 ]) {
                     sh 'mvn clean install'
