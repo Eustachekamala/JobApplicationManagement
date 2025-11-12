@@ -1,5 +1,12 @@
 package org.eustache.management_systeme.DTOs.Responses;
 
-public record ApplicationResponseDTO() {
+import java.time.LocalDate;
+
+public record ApplicationResponseDTO(
+    Integer id,
+    String status,
+    String position,
+    LocalDate appliedAt
+) {
 
 }

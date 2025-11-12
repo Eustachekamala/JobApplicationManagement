@@ -1,6 +1,7 @@
 package org.eustache.management_systeme.Controller;
 
-import org.eustache.management_systeme.Entity.Application;
+import org.eustache.management_systeme.DTOs.Requests.ApplicationRequestDTO;
+import org.eustache.management_systeme.DTOs.Responses.ApplicationResponseDTO;
 import org.eustache.management_systeme.Service.ApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,9 +14,9 @@ public class ApplicationController {
     private ApplicationService applicationService;
 
     @PostMapping("/create/{applicantId}")
-    public ResponseEntity<Application> createApplication(
+    public ResponseEntity<ApplicationResponseDTO> createApplication(
             @PathVariable Integer applicantId,
-            @RequestBody Application application) {
+            @RequestBody ApplicationRequestDTO application) {
         return ResponseEntity.ok(applicationService.createApplication(applicantId, application));
     }
 }
