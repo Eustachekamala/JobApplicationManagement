@@ -49,7 +49,7 @@ public class ApplicantService {
 
         // Default status
         if (applicant.getStatus() == null) {
-            applicant.setStatus(Applicant.Status.PENDING);
+            applicant.setStatus(Applicant.Status.CREATED);
         }
 
         // Save and return mapped response

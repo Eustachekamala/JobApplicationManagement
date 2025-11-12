@@ -18,7 +18,8 @@ public class Application {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private Status status;
     private String position;
     @CreationTimestamp
     private LocalDate appliedAt;
@@ -28,4 +29,9 @@ public class Application {
     @JoinColumn(name = "applicantId", nullable = false)
     @JsonIgnore
     private Applicant applicant;
+
+
+    public enum Status {
+        PENDING, ACCEPTED
+    }
 }

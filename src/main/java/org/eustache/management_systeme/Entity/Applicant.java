@@ -41,6 +41,6 @@ public class Applicant {
     private List<Job> jobs = new ArrayList<>();
 
     public enum Status {
-        PENDING, ACCEPTED
+        CREATED
     }
 }

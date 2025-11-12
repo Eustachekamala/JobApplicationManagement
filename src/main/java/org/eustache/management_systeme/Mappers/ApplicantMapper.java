@@ -19,7 +19,7 @@ public class ApplicantMapper {
         applicant.setLastname(applicantRequestDTO.lastname());
         applicant.setEmail(applicantRequestDTO.email());
         applicant.setPhone(applicantRequestDTO.phone());
-        applicant.setStatus(Applicant.Status.PENDING);
+        applicant.setStatus(Applicant.Status.CREATED);
 
         ResumeRequestDTO resumeDTO = applicantRequestDTO.content();
         if (resumeDTO != null) {
