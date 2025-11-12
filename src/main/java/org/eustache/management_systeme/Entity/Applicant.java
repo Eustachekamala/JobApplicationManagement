@@ -21,7 +21,8 @@ public class Applicant {
     private String lastname;
     private String email;
     private String phone;
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
     //Relationship with Resume
     @OneToOne(mappedBy = "applicant", cascade = CascadeType.ALL)
@@ -38,4 +39,8 @@ public class Applicant {
             inverseJoinColumns = @JoinColumn(name = "job_id")
     )
     private List<Job> jobs = new ArrayList<>();
+
+    public enum Status {
+        PENDING, ACCEPTED
+    }
 }

@@ -1,67 +1,123 @@
 package org.eustache.management_systeme.Service;
 
+import org.eustache.management_systeme.DTOs.Requests.ApplicantRequestDTO;
+import org.eustache.management_systeme.DTOs.Responses.ApplicantResponseDTO;
 import org.eustache.management_systeme.Entity.Applicant;
 import org.eustache.management_systeme.Entity.Application;
 import org.eustache.management_systeme.Entity.Resume;
+import org.eustache.management_systeme.Mappers.ApplicantMapper;
 import org.eustache.management_systeme.Repository.ApplicantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ApplicantService {
-    @Autowired
+
+     @Autowired
     private ApplicantRepository applicantRepository;
+     @Autowired
+    private ApplicantMapper applicantMapper;
 
-    public Applicant createApplicant(Applicant applicant) {
-        Resume resume = applicant.getResume();
-        List<Application> applications = applicant.getApplications();
-
-        // Set the applicant for the resume
-        if (resume != null) {
-            resume.setApplicant(applicant);
-            applicant.setResume(resume);
+    /**
+     * Create a new applicant and handle relationships.
+     */
+    public ApplicantResponseDTO createApplicant(ApplicantRequestDTO dto) {
+        if (dto == null) {
+            throw new IllegalArgumentException("ApplicantRequestDTO cannot be null");
         }
 
-        // Set the applicant for each application
-        if (applications != null) {
+        // Map DTO → Entity
+        Applicant applicant = applicantMapper.toEntity(dto);
+
+        // Ensure resume relationship is set
+        Resume resume = applicant.getResume();
+        if (resume != null) {
+            resume.setApplicant(applicant);
+        }
+
+        // Ensure all applications are linked to this applicant
+        List<Application> applications = applicant.getApplications();
+        if (applications != null && !applications.isEmpty()) {
             for (Application application : applications) {
                 application.setApplicant(applicant);
             }
-            applicant.setApplications(applications);
         }
-        return applicantRepository.save(applicant);
+
+        // Default status
+        if (applicant.getStatus() == null) {
+            applicant.setStatus(Applicant.Status.PENDING);
+        }
+
+        // Save and return mapped response
+        Applicant savedApplicant = applicantRepository.save(applicant);
+        return applicantMapper.toResponseDTO(savedApplicant);
     }
 
-    public Applicant getApplicantById(int id) {
-        return applicantRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Applicant not found"));
+    /**
+     * Find applicant by ID.
+     */
+    public ApplicantResponseDTO getApplicantById(Integer id) {
+        Applicant applicant = applicantRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Applicant not found with ID: " + id));
+        return applicantMapper.toResponseDTO(applicant);
     }
 
-    public List<Applicant> getAllApplicants() {
-        return applicantRepository.findAll();
+    /**
+     * Retrieve all applicants.
+     */
+    public List<ApplicantResponseDTO> getAllApplicants() {
+        return applicantRepository.findAll()
+                .stream()
+                .map(applicantMapper::toResponseDTO)
+                .collect(Collectors.toList());
     }
 
-    public Applicant getApplicantByFirstname(String firstName) {
-        return applicantRepository.findByFirstname(firstName)
-                .orElseThrow(() -> new RuntimeException("Applicant not found"));
+    /**
+     * Find applicant by first name.
+     */
+    public ApplicantResponseDTO getApplicantByFirstname(String firstName) {
+        Applicant applicant = applicantRepository.findByFirstname(firstName)
+                .orElseThrow(() -> new RuntimeException("Applicant not found with firstname: " + firstName));
+        return applicantMapper.toResponseDTO(applicant);
     }
 
-    public Applicant updateApplicant(int id, Applicant updatedApplicant) {
-        Applicant existingApplicant = getApplicantById(id);
-        Optional.ofNullable(updatedApplicant.getFirstname()).ifPresent(existingApplicant::setFirstname);
-        Optional.ofNullable(updatedApplicant.getLastname()).ifPresent(existingApplicant::setLastname);
-        Optional.ofNullable(updatedApplicant.getEmail()).ifPresent(existingApplicant::setEmail);
-        Optional.ofNullable(updatedApplicant.getPhone()).ifPresent(existingApplicant::setPhone);
-        Optional.ofNullable(updatedApplicant.getStatus()).ifPresent(existingApplicant::setStatus);
-        Optional.ofNullable(updatedApplicant.getResume()).ifPresent(existingApplicant::setResume);
-        return applicantRepository.save(existingApplicant);
+    /**
+     * Update applicant partially.
+     */
+    public ApplicantResponseDTO updateApplicant(int id, ApplicantRequestDTO updatedApplicantDTO) {
+        Applicant existingApplicant = applicantRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Applicant not found with ID: " + id));
+
+        // Map only fields that are not null
+        Optional.ofNullable(updatedApplicantDTO.firstname()).ifPresent(existingApplicant::setFirstname);
+        Optional.ofNullable(updatedApplicantDTO.lastname()).ifPresent(existingApplicant::setLastname);
+        Optional.ofNullable(updatedApplicantDTO.email()).ifPresent(existingApplicant::setEmail);
+        Optional.ofNullable(updatedApplicantDTO.phone()).ifPresent(existingApplicant::setPhone);
+
+        // Handle resume update if provided
+        if (updatedApplicantDTO.content() != null) {
+            Resume updatedResume = new Resume();
+            updatedResume.setContent(updatedApplicantDTO.content().content());
+            updatedResume.setApplicant(existingApplicant);
+            existingApplicant.setResume(updatedResume);
+        }
+
+        Applicant updated = applicantRepository.save(existingApplicant);
+        return applicantMapper.toResponseDTO(updated);
     }
 
+    /**
+     * Delete an applicant by ID.
+     */
     public String deleteApplicant(int id) {
+        if (!applicantRepository.existsById(id)) {
+            throw new RuntimeException("Applicant not found with ID: " + id);
+        }
         applicantRepository.deleteById(id);
-        return "Applicant with id " + id + " has been deleted.";
+        return "Applicant with ID " + id + " has been deleted successfully.";
     }
 }

@@ -1,13 +1,19 @@
 package org.eustache.management_systeme.Service;
 
 import jakarta.transaction.Transactional;
+
+import org.eustache.management_systeme.DTOs.Requests.JobRequestDTO;
+import org.eustache.management_systeme.DTOs.Responses.JobResponseDTO;
 import org.eustache.management_systeme.Entity.Applicant;
 import org.eustache.management_systeme.Entity.Job;
+import org.eustache.management_systeme.Mappers.JobMapper;
 import org.eustache.management_systeme.Repository.ApplicantRepository;
 import org.eustache.management_systeme.Repository.JobRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -18,9 +24,13 @@ public class JobService {
     private JobRepository jobRepository;
     @Autowired
     private ApplicantRepository applicantRepository;
+    @Autowired
+    private JobMapper jobMapper;
 
-    public Job createJob(Job job){
-        return jobRepository.save(job);
+    public ResponseEntity<JobResponseDTO> createJob(JobRequestDTO dto){
+        Job job = jobMapper.toDto(dto);
+        Job savedJob = jobRepository.save(job);
+        return new ResponseEntity<>(jobMapper.toEntity(savedJob),HttpStatus.CREATED);
     }
 
     public Applicant addJobToApplicant(Integer applicantId, Integer jobId) {

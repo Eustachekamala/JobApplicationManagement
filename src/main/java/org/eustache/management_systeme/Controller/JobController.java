@@ -1,5 +1,7 @@
 package org.eustache.management_systeme.Controller;
 
+import org.eustache.management_systeme.DTOs.Requests.JobRequestDTO;
+import org.eustache.management_systeme.DTOs.Responses.JobResponseDTO;
 import org.eustache.management_systeme.Entity.Applicant;
 import org.eustache.management_systeme.Entity.Job;
 import org.eustache.management_systeme.Service.JobService;
@@ -39,10 +41,10 @@ public class JobController {
 
     //Create a job
     @PostMapping("/create")
-    public ResponseEntity<Job> createJob(
-            @RequestBody Job job
+    public ResponseEntity<JobResponseDTO> createJob(
+            @RequestBody JobRequestDTO job
     ) {
-        return new ResponseEntity<>(jobService.createJob(job), HttpStatus.CREATED);
+        return jobService.createJob(job);
     }
 
     //Update a job

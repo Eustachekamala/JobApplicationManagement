@@ -1,8 +1,13 @@
 package org.eustache.management_systeme.Controller;
 
-import org.eustache.management_systeme.Entity.Applicant;
+import java.util.List;
+
+import org.eustache.management_systeme.DTOs.Requests.ApplicantRequestDTO;
+import org.eustache.management_systeme.DTOs.Responses.ApplicantResponseDTO;
 import org.eustache.management_systeme.Service.ApplicantService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -12,37 +17,37 @@ public class ApplicantController {
     private ApplicantService applicantService;
 
     @GetMapping("id/{id}")
-    public Applicant getApplicantById(
+    public ResponseEntity<ApplicantResponseDTO> getApplicantById(
             @PathVariable Integer id
     ) {
-        return applicantService.getApplicantById(id);
+        return new ResponseEntity<>(applicantService.getApplicantById(id), HttpStatus.OK);
     }
 
     @PostMapping("/create")
-    public Applicant createApplicant(
-            @RequestBody Applicant applicant
+    public ResponseEntity<ApplicantResponseDTO> createApplicant(
+            @RequestBody ApplicantRequestDTO applicant
     ) {
-        return applicantService.createApplicant(applicant);
+        return new ResponseEntity<>(applicantService.createApplicant(applicant), HttpStatus.CREATED);
     }
 
     @PostMapping("/update/{id}")
-    public Applicant updateApplicant(
+    public ResponseEntity<ApplicantResponseDTO> updateApplicant(
             @PathVariable Integer id,
-            @RequestBody Applicant applicant
+            @RequestBody ApplicantRequestDTO applicant
     ) {
-        return applicantService.updateApplicant(id, applicant);
+        return new ResponseEntity<>(applicantService.updateApplicant(id, applicant), HttpStatus.OK);
     }
 
     @GetMapping("/all")
-    public Iterable<Applicant> getAllApplicants() {
-        return applicantService.getAllApplicants();
+    public ResponseEntity<List<ApplicantResponseDTO>> getAllApplicants() {
+        return new ResponseEntity<>(applicantService.getAllApplicants(), HttpStatus.OK);
     }
 
     @GetMapping("firstname/{firstname}")
-    public Applicant getApplicantByFirstname(
+    public ResponseEntity<ApplicantResponseDTO> getApplicantByFirstname(
             @PathVariable String firstname
     ) {
-        return applicantService.getApplicantByFirstname(firstname);
+        return new ResponseEntity<>(applicantService.getApplicantByFirstname(firstname), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
