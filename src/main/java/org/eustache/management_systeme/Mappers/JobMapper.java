@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class JobMapper {
     // This method maps JobRequestDTO to Job entity
-  public Job toDto(JobRequestDTO jobRequestDTO) {
+  public Job toEntity(JobRequestDTO jobRequestDTO) {
     if (jobRequestDTO == null) return null;
 
     Job job = new Job();
@@ -18,7 +18,7 @@ public class JobMapper {
   }
 
   // This method maps Job entity to JobResponseDTO
-  public JobResponseDTO toEntity(Job job) {
+  public JobResponseDTO toResponseDTO(Job job) {
     if (job == null) return null;
 
     return new JobResponseDTO(

@@ -28,9 +28,9 @@ public class JobService {
     private JobMapper jobMapper;
 
     public ResponseEntity<JobResponseDTO> createJob(JobRequestDTO dto){
-        Job job = jobMapper.toDto(dto);
+        Job job = jobMapper.toEntity(dto);
         Job savedJob = jobRepository.save(job);
-        return new ResponseEntity<>(jobMapper.toEntity(savedJob),HttpStatus.CREATED);
+        return new ResponseEntity<>(jobMapper.toResponseDTO(savedJob),HttpStatus.CREATED);
     }
 
     public Applicant addJobToApplicant(Integer applicantId, Integer jobId) {

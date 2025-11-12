@@ -1,5 +1,7 @@
 package org.eustache.management_systeme.DTOs.Responses;
 
+import java.util.List;
+
 import org.eustache.management_systeme.DTOs.Requests.ResumeRequestDTO;
 
 public record ApplicantResponseDTO(
@@ -9,7 +11,9 @@ public record ApplicantResponseDTO(
     String email,
     String phone,
     String status,
-    ResumeRequestDTO content
+    ResumeRequestDTO content,
+    List<ApplicationResponseDTO> applications,
+    List<JobResponseDTO> jobs
 ) {
 
 }
