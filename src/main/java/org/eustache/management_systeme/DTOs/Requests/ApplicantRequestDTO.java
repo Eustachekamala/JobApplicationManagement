@@ -5,7 +5,7 @@ public record ApplicantRequestDTO(
     String lastname,
     String email,
     String phone, 
-    ResumeRequestDTO content
+    ResumeRequestDTO resume
 ) {
 
 }

@@ -32,7 +32,7 @@ public class ApplicantMapper {
         applicant.setPhone(applicantRequestDTO.phone());
         applicant.setStatus(Applicant.Status.CREATED);
 
-        ResumeRequestDTO resumeDTO = applicantRequestDTO.content();
+        ResumeRequestDTO resumeDTO = applicantRequestDTO.resume();
         if (resumeDTO != null) {
             Resume resume = new Resume();
             resume.setContent(resumeDTO.content());

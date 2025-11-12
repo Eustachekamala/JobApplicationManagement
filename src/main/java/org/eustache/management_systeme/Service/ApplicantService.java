@@ -99,9 +99,9 @@ public class ApplicantService {
         Optional.ofNullable(updatedApplicantDTO.phone()).ifPresent(existingApplicant::setPhone);
 
         // Handle resume update if provided
-        if (updatedApplicantDTO.content() != null) {
+        if (updatedApplicantDTO.resume() != null) {
             Resume updatedResume = new Resume();
-            updatedResume.setContent(updatedApplicantDTO.content().content());
+            updatedResume.setContent(updatedApplicantDTO.resume().content());
             updatedResume.setApplicant(existingApplicant);
             existingApplicant.setResume(updatedResume);
         }
